@@ -12,11 +12,12 @@ Upgrading is `brew upgrade lace`.
 
 ## What this repository contains
 
-Formula metadata only: `Formula/lace.rb` names the release version and,
-for each supported platform, the artifact URL on `releases.lace.cloud`
-and its SHA-256 digest. No Lace source code and no binaries live here.
-Homebrew downloads the binary from `releases.lace.cloud` directly at
-install time.
+Packaging metadata and one public key. `Formula/lace.rb` names the
+release version and, for each supported platform, the artifact URL on
+`releases.lace.cloud` and its SHA-256 digest. `release-signing.pub` is
+the minisign public key those artifacts are signed with. No Lace source
+code and no binaries live here. Homebrew downloads the binary from
+`releases.lace.cloud` directly at install time.
 
 Supported platforms match what the Lace release pipeline builds:
 macOS arm64, Linux amd64, and Linux arm64. Intel Macs are not
@@ -33,26 +34,65 @@ checksum check for everyone.
 ## Verifying a release yourself
 
 Every published artifact is signed with
-[minisign](https://jedisct1.github.io/minisign/). Homebrew verifies the
-SHA-256 digest pinned in the formula; to additionally verify
-authenticity against the Lace release-signing key:
+[minisign](https://jedisct1.github.io/minisign/). Each versioned
+artifact `lace-cli-<os>-<arch>-vX.Y.Z` is published alongside a sibling
+`.sha256` and `.minisig`. Homebrew verifies the SHA-256 digest pinned in
+the formula; to additionally verify authenticity against the Lace
+release-signing key in this repository:
 
 ```sh
 V=v2.24.0
 A=lace-cli-darwin-arm64
 curl -fsSL -O "https://releases.lace.cloud/${A}-${V}"
 curl -fsSL -O "https://releases.lace.cloud/${A}-${V}.minisig"
-minisign -Vm "${A}-${V}" -P '<release-signing public key>'
+curl -fsSL -O "https://raw.githubusercontent.com/lace-cloud/homebrew-tap/main/release-signing.pub"
+minisign -Vm "${A}-${V}" -p release-signing.pub
 ```
 
-The public key is published in the Lace CLI documentation.
+Substitute `linux-amd64` or `linux-arm64` for `darwin-arm64` as needed;
+those three are the only targets built.
+
+Signed artifacts start at **v2.24.0**. No earlier CLI release was
+signed, so no earlier version has a `.minisig` to check.
+
+### Why the key lives here
+
+The binaries and their signatures are both served from
+`releases.lace.cloud`. A trust anchor served from that *same* origin
+would prove nothing — whoever could rewrite that bucket could replace
+the key and the artifacts in one move, and every signature would still
+check out. So the key is published at origins other than the one serving
+the artifacts:
+
+- <https://lace.cloud/release-signing.pub>
+- `release-signing.pub` in this repository (GitHub's infrastructure,
+  independent of both)
+
+Fetch both and confirm they are byte-identical before trusting either.
+An attacker would have to compromise every origin at once to go
+undetected:
+
+```sh
+curl -fsSL https://lace.cloud/release-signing.pub -o key-a.pub
+curl -fsSL https://raw.githubusercontent.com/lace-cloud/homebrew-tap/main/release-signing.pub -o key-b.pub
+diff key-a.pub key-b.pub && echo "trust anchors agree"
+```
+
+### This copy is a mirror, not the source
+
+`scripts/release-signing.pub` in the Lace monorepo is the single source
+of truth for the release-signing key. The copy here is a mirror kept
+byte-identical to it. **A key rotation must update this file too** —
+otherwise this repository keeps serving a stale trust anchor that
+disagrees with the key the pipeline actually signs with, and every
+cross-check above fails for reasons nobody can explain.
 
 ## Licensing
 
 The Lace CLI is proprietary software of Lace Cloud Inc.; installing it
 through this tap does not grant rights beyond the terms shipped in the
 binary's `LICENSE.txt`. This repository holds only the packaging
-metadata described above.
+metadata and public key described above.
 
 ## Issues
 
