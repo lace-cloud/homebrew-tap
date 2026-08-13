@@ -70,10 +70,11 @@ three are the only Homebrew targets.
 
 `release-signing.pub` here is a **mirror**. The single source of truth is
 `scripts/release-signing.pub` in the Lace monorepo, and this copy is kept
-byte-identical to it **by hand** — no CI job refreshes it. The release
-pipeline's push to this repository copies `Formula/lace.rb` and nothing else,
-and it runs only on a `cli-v*` release tag, which a key rotation does not
-produce.
+byte-identical to it by the monorepo's `installer-publish.yml`, which pushes
+the file here on every push to the monorepo's `main` that changes it — the
+push a key rotation is — before republishing the installer. Each writer owns
+one file: the `cli-v*` release pipeline pushes `Formula/lace.rb` and nothing
+else; the installer pipeline pushes this key and nothing else.
 
 What the copy is worth is that it is not served from
 `releases.lace.cloud`. The binaries and their signatures both come from that
@@ -89,9 +90,10 @@ is genuine. Treating a mismatch as evidence of compromise would be wrong: the
 overwhelmingly likely cause is a key rotation partway through reaching every
 copy. If you see one, the correct response is to ask, not to assume an attack.
 
-A rotation must update this file by hand. Leaving it stale makes a genuine
-signature fail to verify, which looks exactly like an attack to anyone
-following the steps above.
+A rotation reaches this file without human hands in the ordinary case. If
+the mirror step fails, its run is red in the monorepo and the file is pushed
+by hand — leaving it stale makes a genuine signature fail to verify, which
+looks exactly like an attack to anyone following the steps above.
 
 ## Licensing
 
