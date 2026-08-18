@@ -13,25 +13,25 @@
 class Lace < Formula
   desc "Infrastructure authoring, plan/apply runs, and registry access for Lace"
   homepage "https://lace.cloud"
-  version "2.26.0"
+  version "2.27.0"
   # Not an SPDX-expressible license: apps/cli/LICENSE.txt is proprietary.
   license :cannot_represent
 
   on_macos do
     on_arm do
-      url "https://releases.lace.cloud/lace-cli-darwin-arm64-v2.26.0"
-      sha256 "1f61e7e243806b8eb75683b2f7b371cd40b2d930d26c5e2fdf2518500ce77736"
+      url "https://releases.lace.cloud/lace-cli-darwin-arm64-v2.27.0"
+      sha256 "8d82b1df183915ba4712a4df0dbe52711a00b93d8a5713729bb18ce7722d687a"
     end
   end
 
   on_linux do
     on_intel do
-      url "https://releases.lace.cloud/lace-cli-linux-amd64-v2.26.0"
-      sha256 "4e8b59b192ba4784bb3b8d6d278dc09828c0e6c3e42058c4e964f98bd137b1e2"
+      url "https://releases.lace.cloud/lace-cli-linux-amd64-v2.27.0"
+      sha256 "aeeae108e685bf677529c91157b7b2f405b29ffcabea1af652d33e1de592caa3"
     end
     on_arm do
-      url "https://releases.lace.cloud/lace-cli-linux-arm64-v2.26.0"
-      sha256 "381853306495fd5601d62906a48c322ba2b8861d03d6bdab5288886325b0133c"
+      url "https://releases.lace.cloud/lace-cli-linux-arm64-v2.27.0"
+      sha256 "713bfe8d79702950fdccd2f845d3f697d2980b5081816956f7a7157ef85416f0"
     end
   end
 
