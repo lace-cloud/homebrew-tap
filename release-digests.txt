@@ -1,7 +1,7 @@
-version v2.55.0
-lace-cli-darwin-arm64-v2.55.0 3869e3b9c6dc3424172c549835703dc0b52cf05f05fb8144fc05ae168cded74c
-lace-cli-linux-amd64-v2.55.0 7f88aadf8335273ade19dbc06646d324764feabf96e2ded29ad7d641784f6206
-lace-cli-linux-arm64-v2.55.0 ff05f1af82c8ffde2041dc6875b7d8bb4a9deee98117c80d69ac2a9878d4d474
-lace-cli-windows-amd64-v2.55.0.exe df3faa2cde286125be3de5c1480aaed6ad963b10cd0816c60a61d5dbb65f02b3
-lace-runner-linux-amd64-v2.55.0 c56accec59c1b3a4040a0fca91b8e1647e7efa27ac20ec63ead76a46002e0085
-lace-runner-linux-arm64-v2.55.0 31da8c5dd59ed86f12c20d2e7c92847ce9349494bbf450be0a60c21234bf2e88
+version v2.56.0
+lace-cli-darwin-arm64-v2.56.0 8aeb63c521db8dcd55cb01f3761c3837ed7d2a04c21720d333d19cd5cdc2a3b3
+lace-cli-linux-amd64-v2.56.0 e996214473bb97bc3c33ff3dd1bf78231e4c20675ce4c26fbf4f4de87d64764f
+lace-cli-linux-arm64-v2.56.0 80b72eba0272da789432d66b414a2ac8699ee2d0e4e700477cec82c4e2798cba
+lace-cli-windows-amd64-v2.56.0.exe ad85be6035c19dc35277ae8bd8b0daadd45848d5a690614cc2900309d8fecc9d
+lace-runner-linux-amd64-v2.56.0 a34938f6c171a1bb68ec2da4364c2d0be199f47e43322a22ec5ad7d063af00f0
+lace-runner-linux-arm64-v2.56.0 e26684648dbdd378897345796952e07de782515e619b51e2259d4de9ca1bfd9b
